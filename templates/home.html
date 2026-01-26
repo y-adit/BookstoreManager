@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Dashboard - Bookstore</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        
+        /* Sticky Header Styling */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #5c67f2;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding-bottom: 50px;
+        }
+
+        .book-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-buy {
+            display: block;
+            background: #28a745;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .locked-selections {
+            margin-top: 40px;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            border-left: 8px solid #28a745;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-header">
+        <div class="container" style="padding: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="margin: 0;">📚 Bookstore Manager</h2>
+                <div style="font-size: 0.9rem;">
+                    Welcome, <b>{{ username }}</b> | 
+                    <a href="{{ url_for('login') }}" style="color: red; font-weight: bold; text-decoration: none;">Logout</a>
+                </div>
+            </div>
+
+            <input type="text" id="bookSearch" onkeyup="searchBooks()" 
+                   placeholder="🔍 Search by title or author..." 
+                   style="width: 100%; padding: 12px; border: 2px solid #5c67f2; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <h3 style="margin-top: 30px; color: #333;">Available Books</h3>
+        <div id="bookList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 10px;">
+            {% for book in books %}
+            <div class="book-card">
+                <div style="height: 100px; background: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; font-size: 2rem;">
+                    📖
+                </div>
+                <h4 style="margin: 5px 0; color: #1a2a6c; height: 45px; overflow: hidden;">{{ book.title }}</h4>
+                <p style="color: #666; font-size: 0.8rem; margin: 5px 0;">By {{ book.author }}</p>
+                <p style="font-weight: bold; color: #5c67f2; font-size: 1.1rem;">{{ book.price }}</p>
+                
+                <a href="{{ url_for('buy_book', book_title=book.title) }}" class="btn-buy">
+                    Buy Now / Check Stores
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="locked-selections">
+            <h3 style="margin-top: 0;">📍 Your Locked Store Selections</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                The store selections below have been locked and sent to the Admin for processing.
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                {% for p in user_purchases %}
+                <li style="background: #f9f9f9; margin-bottom: 12px; padding: 15px; border-radius: 6px; border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                    <span>✅ <b>{{ p.book }}</b></span>
+                    <span style="color: #555; font-style: italic;">at {{ p.store }} ({{ p.price }})</span>
+                </li>
+                {% else %}
+                <li style="color: #999; text-align: center; padding: 20px;">No store options locked yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Search Logic
+        function searchBooks() {
+            let input = document.getElementById('bookSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('book-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                // Toggle visibility based on match
+                cards[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

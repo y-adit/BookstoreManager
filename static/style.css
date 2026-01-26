@@ -1,0 +1,76 @@
+/* Universal Styles */
+body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    background-color: #1a2a6c; /* Match the index page dark blue */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+}
+
+/* Central Card Style */
+.container { 
+    background: white; 
+    padding: 2.5rem; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+    width: 350px; 
+    text-align: center; 
+}
+
+h2 { color: #333; margin-top: 0; }
+
+/* Input Fields */
+input { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 12px 0; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    font-size: 1rem;
+}
+
+/* Button Styles */
+button { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: #5c67f2; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover { 
+    background-color: #4a54e1; 
+}
+
+/* Home Page Specifics */
+.book-card { 
+    background: #f9f9fb;
+    border: 1px solid #eee; 
+    padding: 15px; 
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: left; 
+}
+
+.book-card h4 { margin: 0 0 5px 0; color: #333; }
+.book-card p { margin: 0; color: #666; font-size: 0.9rem; }
+
+/* Links */
+a { 
+    color: #5c67f2; 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}

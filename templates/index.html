@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Manager | Home</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #1a2a6c;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+        .nav-logo { color: white; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 25px; transition: 0.3s; }
+        .nav-links a:hover { color: #5c67f2; }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .welcome-content { max-width: 600px; padding: 20px; }
+        .welcome-content h1 { font-size: 3rem; margin-bottom: 10px; }
+        .welcome-content p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        .btn {
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-primary { background-color: #5c67f2; color: white; }
+        .btn-secondary { border: 2px solid white; color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        /* Content Section */
+        .features {
+            background-color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .feature-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: #f4f4f9;
+            border-radius: 10px;
+        }
+        .feature-item h3 { color: #1a2a6c; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="nav-logo">📚 Bookstore</a>
+        <div class="nav-links">
+            <a href="{{ url_for('about') }}">About Us</a>
+            <a href="{{ url_for('contact') }}">Contact Us</a>
+            <a href="{{ url_for('admin_login') }}">Admin Login</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="welcome-content">
+            <h1>Your Digital Library</h1>
+            <p>Welcome to the ultimate Bookstore Manager. Organize your collection, track your favorite authors, and manage your inventory all in one place.</p>
+            <div class="btn-group">
+                <a href="{{ url_for('signup') }}" class="btn btn-primary">Join Now</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="features">
+        <h2>What You Can Do</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>📖 Track Books</h3>
+                <p>Add new titles and manage your existing library database easily.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔍 Quick Search</h3>
+                <p>Find any book in your collection instantly with our optimized search.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔒 Secure Access</h3>
+                <p>Your personal collection is protected with unique user accounts.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

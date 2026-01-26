@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Portal - Bookstore</title>
+    <style>
+        body { margin: 0; background-color: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .admin-box { background: white; padding: 40px; border-radius: 12px; width: 320px; text-align: center; border-top: 5px solid #ef4444; }
+        h2 { color: #1e293b; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .back-link { display: block; margin-top: 15px; font-size: 0.8rem; color: #64748b; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="admin-box">
+        <h2>🔒 Admin Portal</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p style="color: red; font-size: 0.8rem;">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="text" name="admin_name" placeholder="Admin Username" required>
+            <input type="password" name="admin_password" placeholder="Admin Password" required>
+            <button type="submit">Access Dashboard</button>
+        </form>
+        <a href="/" class="back-link">Return to Public Site</a>
+    </div>
+</body>
+</html>

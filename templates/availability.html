@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store Availability - Bookstore</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #1a2a6c; margin: 0; padding: 40px; color: white; }
+        .container { background: white; color: #333; padding: 30px; border-radius: 12px; max-width: 900px; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { color: #1a2a6c; border-bottom: 2px solid #5c67f2; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #f1f5f9; padding: 12px; text-align: left; color: #475569; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
+        .badge { background: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .btn-lock { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-lock:hover { background: #218838; }
+        .back-link { display: inline-block; margin-top: 20px; color: #5c67f2; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Options for: {{ title }}</h2>
+    <p>Compare prices and delivery times before locking your selection.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Store Name</th>
+                <th>Price</th>
+                <th>Delivery</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for opt in options %}
+    <tr style="{% if opt.stock == 0 %} opacity : 0.6; background-color: #f9f9f9;{% endif %}">
+        <td><b>{{ opt.name }}</b></td>
+        <td style="color: #28a745; font-weight: bold;">{{ opt.price }}</td>
+        <td>{{ opt.delivery }}</td>
+        <td><span class="badge">{{ opt.type }}</span></td>
+        <td>
+            {% if opt.stock > 0 %}
+                <form action="{{ url_for('lock_selection') }}" method="POST" style="margin: 0;">
+                    <input type="hidden" name="book_title" value="{{ title }}">
+                    <input type="hidden" name="store_name" value="{{ opt.name }}">
+                    <input type="hidden" name="price" value="{{ opt.price }}">
+                    <button type="submit" class="btn-lock">Lock Option</button>
+                </form>
+            {% else %}
+                <span style="color: #d9534f; font-weight: bold; font-size: 0.85rem;">
+                    🚫 Out of Stock
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5" style="text-align: center; padding: 30px; color: #999;">
+            No specific store data available for this book yet.
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+
+    <a href="{{ url_for('home') }}" class="back-link">← Back to Catalog</a>
+</div>
+
+</body>
+</html>
