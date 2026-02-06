@@ -113,5 +113,17 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route('/about')
+def about():
+    return "About page coming soon!"
+
+@app.route('/contact')
+def contact():
+    return "Contact us at support@example.com"
+
+@app.route('/admin_login')
+def admin_login():
+    return render_template('login.html') # Reuses login page for now
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
