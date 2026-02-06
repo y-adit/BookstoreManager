@@ -23,13 +23,18 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="/" class="nav-logo">📚 Bookstore</a>
-        <div class="nav-links">
-            <a href="{{ url_for('index') }}">Home</a>
+    <a href="/" class="nav-logo">📚 Bookstore</a>
+    <div class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if session.get('user') %}
+            <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout ({{ session['user'] }})</a>
+        {% else %}
             <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('signup') }}">Sign Up</a>
-        </div>
-    </nav>
+        {% endif %}
+    </div>
+</nav>
     <div class="hero">
         <div class="welcome-content">
             <h1>Your Digital Library</h1>

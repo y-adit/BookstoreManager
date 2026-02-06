@@ -59,6 +59,13 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         
+        # Hardcoded Admin Check for your presentation
+        if username == 'admin' and password == 'admin123':
+            session['admin'] = True # Sets the admin session variable
+            session['user'] = 'Admin'
+            return redirect(url_for('admin_dashboard'))
+        
+        # Regular User Check
         response = users_table.get_item(Key={'username': username})
         if 'Item' in response and response['Item']['password'] == password:
             session['user'] = username
@@ -99,8 +106,9 @@ def lock_selection():
 
 @app.route('/admin/dashboard')
 def admin_dashboard():
+    # Check for the 'admin' key we set in the login function
     if 'admin' not in session:
-        return redirect(url_for('admin_login'))
+        return redirect(url_for('login'))
     
     users = users_table.scan().get('Items', [])
     books = books_table.scan().get('Items', [])
