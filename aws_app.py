@@ -18,7 +18,7 @@ books_table = dynamodb.Table('Books')
 purchases_table = dynamodb.Table('Purchases')
 
 # Replace with your actual SNS Topic ARN
-SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:604665149129:aws_capstone_topic' 
+SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:122610513084:aws_capstone_topic' 
 
 def send_notification(subject, message):
     try:
